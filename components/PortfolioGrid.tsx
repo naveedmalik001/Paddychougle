@@ -2,9 +2,16 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { X, ExternalLink } from "lucide-react";
+import { X, ExternalLink, Play } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
+
+// Helper function to extract YouTube video ID from URL
+function getYouTubeVideoId(url: string): string {
+    const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[7].length === 11) ? match[7] : '';
+}
 
 const projects = [
     {
@@ -12,6 +19,7 @@ const projects = [
         title: "Neon Athletic",
         category: "Fitness Campaign",
         image: "/images/project-1.jpg",
+        youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
         client: "Nike India",
         role: "Lead Model",
         description: "A high-energy campaign focused on urban running and night training. Shot on location in Mumbai.",
@@ -21,6 +29,7 @@ const projects = [
         title: "Urban Zen",
         category: "Lifestyle",
         image: "/images/project-2.jpg",
+        youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
         client: "FabIndia",
         role: "Talent",
         description: "Showcasing the new summer collection with a focus on organic fabrics and modern living.",
@@ -30,6 +39,7 @@ const projects = [
         title: "Strength Define",
         category: "Commercial",
         image: "/images/project-3.jpg",
+        youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
         client: "Gold's Gym",
         role: "Featured Athlete",
         description: "National TVC for the brand re-launch. Emphasis on raw strength and dedication.",
@@ -39,6 +49,7 @@ const projects = [
         title: "Tech Elevate",
         category: "Digital Ad",
         image: "/images/project-4.jpg",
+        youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
         client: "Boat Audio",
         role: "Actor",
         description: "Digital series for the new noise-cancelling headphones line. Playing the role of a focused creator.",
@@ -77,6 +88,11 @@ export default function PortfolioGrid() {
                                 <span className="text-gold text-sm uppercase tracking-wider font-bold mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">{project.category}</span>
                                 <h3 className="text-white text-3xl font-serif font-bold translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">{project.title}</h3>
                             </div>
+                            {project.youtubeUrl && (
+                                <div className="absolute top-4 right-4 p-3 bg-gold/90 rounded-full text-charcoal">
+                                    <Play size={20} fill="currentColor" />
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
@@ -112,12 +128,23 @@ export default function PortfolioGrid() {
 
                             <div className="grid md:grid-cols-2">
                                 <div className="relative h-64 md:h-auto min-h-[400px]">
-                                    <Image
-                                        src={selectedProject.image}
-                                        alt={selectedProject.title}
-                                        fill
-                                        className="object-cover"
-                                    />
+                                    {selectedProject.youtubeUrl ? (
+                                        <iframe
+                                            src={`https://www.youtube.com/embed/${getYouTubeVideoId(selectedProject.youtubeUrl)}`}
+                                            title={selectedProject.title}
+                                            className="w-full h-full"
+                                            frameBorder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowFullScreen
+                                        />
+                                    ) : (
+                                        <Image
+                                            src={selectedProject.image}
+                                            alt={selectedProject.title}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    )}
                                 </div>
                                 <div className="p-8 md:p-12 space-y-6">
                                     <div>
@@ -143,9 +170,21 @@ export default function PortfolioGrid() {
                                     </div>
 
                                     <div className="pt-6">
-                                        <button className="w-full py-4 bg-white text-charcoal font-bold uppercase tracking-wide hover:bg-gold transition-colors">
-                                            View Full Case Study
-                                        </button>
+                                        {selectedProject.youtubeUrl ? (
+                                            <a
+                                                href={selectedProject.youtubeUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center justify-center gap-2 w-full py-4 bg-gold text-charcoal font-bold uppercase tracking-wide hover:bg-white transition-colors"
+                                            >
+                                                <ExternalLink size={18} />
+                                                Watch on YouTube
+                                            </a>
+                                        ) : (
+                                            <button className="w-full py-4 bg-white text-charcoal font-bold uppercase tracking-wide hover:bg-gold transition-colors">
+                                                View Full Case Study
+                                            </button>
+                                        )}
                                     </div>
                                 </div>
                             </div>
