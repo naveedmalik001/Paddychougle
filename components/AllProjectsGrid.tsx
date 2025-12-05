@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { X, ExternalLink, Play } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import clsx from "clsx";
+import Link from "next/link";
 
 // Helper function to extract YouTube video ID from URL
 function getYouTubeVideoId(url: string): string {
@@ -20,7 +19,7 @@ function getYouTubeThumbnail(url: string): string {
     return videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : '';
 }
 
-const projects = [
+const allProjects = [
     {
         id: 1,
         title: "Neon Athletic",
@@ -61,33 +60,55 @@ const projects = [
         role: "Actor",
         description: "Digital series for the new noise-cancelling headphones line. Playing the role of a focused creator.",
     },
+    {
+        id: 5,
+        title: "Street Style Revolution",
+        category: "Fashion Campaign",
+        image: "/images/project-5.jpg",
+        youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        client: "H&M",
+        role: "Lead Model",
+        description: "Urban fashion campaign showcasing the new streetwear collection.",
+    },
+    {
+        id: 6,
+        title: "Zen Master",
+        category: "Wellness",
+        image: "/images/project-6.jpg",
+        youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        client: "Yoga Studio",
+        role: "Brand Ambassador",
+        description: "Meditation and mindfulness campaign for modern lifestyle.",
+    },
 ];
 
-export default function PortfolioGrid() {
-    const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
-
-    // Show only first 3 projects as featured
-    const featuredProjects = projects.slice(0, 3);
+export default function AllProjectsGrid() {
+    const [selectedProject, setSelectedProject] = useState<typeof allProjects[0] | null>(null);
 
     return (
-        <section id="work" className="py-24 bg-charcoal">
+        <section className="py-24 bg-charcoal min-h-screen">
             <div className="container mx-auto px-6">
-                <div className="flex justify-between items-end mb-16">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-16">
                     <div>
-                        <span className="text-gold uppercase tracking-widest font-bold text-sm">Selected Work</span>
-                        <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mt-4">Featured Projects</h2>
+                        <Link href="/" className="text-gold hover:text-white transition-colors inline-block mb-4">
+                            ← Back to Home
+                        </Link>
+                        <span className="text-gold uppercase tracking-widest font-bold text-sm">Complete Portfolio</span>
+                        <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mt-4">All Projects</h2>
+                        <p className="text-muted mt-4 max-w-2xl">
+                            Explore my complete collection of work, including campaigns, commercials, and creative collaborations with leading brands.
+                        </p>
                     </div>
-                    <Link href="/projects" className="hidden md:block text-muted hover:text-white transition-colors border-b border-muted/30 pb-1">View All Projects</Link>
                 </div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {featuredProjects.map((project) => (
+                    {allProjects.map((project) => (
                         <div
                             key={project.id}
                             className="group relative aspect-[4/3] cursor-pointer overflow-hidden rounded-sm"
                             onClick={() => setSelectedProject(project)}
                         >
-                            <div className="absolute inset-0 bg-charcoal animate-pulse" /> {/* Fallback */}
+                            <div className="absolute inset-0 bg-charcoal animate-pulse" />
                             <Image
                                 src={project.youtubeUrl ? getYouTubeThumbnail(project.youtubeUrl) : project.image}
                                 alt={project.title}
@@ -95,7 +116,6 @@ export default function PortfolioGrid() {
                                 className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
                                 unoptimized={project.youtubeUrl ? true : false}
                                 onError={(e) => {
-                                    // Fallback to default image if YouTube thumbnail fails
                                     if (project.youtubeUrl) {
                                         const target = e.target as HTMLImageElement;
                                         target.src = project.image;
@@ -113,10 +133,6 @@ export default function PortfolioGrid() {
                             )}
                         </div>
                     ))}
-                </div>
-
-                <div className="mt-12 text-center md:hidden">
-                    <Link href="/projects" className="inline-block border-b border-white text-white pb-1">View All Projects</Link>
                 </div>
             </div>
 
