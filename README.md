@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Paddy Chougule Portfolio
+
+A modern, production-ready Next.js portfolio website designed for a fitness model and actor. Built with Next.js App Router, Tailwind CSS, and Framer Motion.
+
+## Features
+
+- **Premium Design:** Sleek Charcoal & Gold theme.
+- **Responsive:** Fully optimized for Mobile, Tablet, and Desktop.
+- **Scroll Spy:** Sticky header with active section highlighting.
+- **Interactive:** Smooth animations and modal-based project views.
+- **Contact API:** Serverless API route handling form submissions.
+- **SEO Ready:** Semantic HTML and optimized metadata.
+
+## Tech Stack
+
+- **Framework:** Next.js 15+ (App Router)
+- **Styling:** Tailwind CSS v4
+- **Icons:** Lucide React
+- **Animations:** Framer Motion
+- **Form:** React Hook Form
 
 ## Getting Started
 
-First, run the development server:
+1. **Install Dependencies:**
+   ```bash
+   npm install
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Run Development Server:**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) with your browser.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Build for Production:**
+   ```bash
+   npm run build
+   npm start
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+4. **Customize Content:**
+   - Edit content in `components/` files.
+   - Replace images in `public/images/`.
+   - Update `app/layout.tsx` for SEO metadata.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deployment
 
-## Learn More
+Deploy easily to [Vercel](https://vercel.com):
 
-To learn more about Next.js, take a look at the following resources:
+1. Push your code to a Git repository (GitHub/GitLab).
+2. Import the project in Vercel.
+3. Vercel will auto-detect Next.js and build.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Checklist (Pre-Launch)
+- [ ] Replace placeholder images in `/public/images`.
+- [ ] Add your actual `media-kit.pdf` to `/public`.
+- [ ] Update `app/api/contact/route.ts` with real email service (e.g., Resend, SendGrid).
