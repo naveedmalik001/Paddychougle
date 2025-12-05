@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion"; // Will add client wrapper or use simple CSS if server component
 
 export default function Hero() {
     return (
@@ -22,7 +21,7 @@ export default function Hero() {
                     </h1>
 
                     <p className="text-muted text-lg md:text-xl max-w-lg leading-relaxed border-l-2 border-gold/50 pl-6">
-                        Professional fitness model and actor acting as the catalyst for your brand's visual identity.
+                        Professional fitness model and actor acting as the catalyst for your brand&apos;s visual identity.
                         Delivering cinematic presence and athletic precision.
                     </p>
 

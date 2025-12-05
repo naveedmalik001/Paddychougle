@@ -9,7 +9,7 @@ export async function POST(request: Request) {
         await new Promise(resolve => setTimeout(resolve, 1000));
 
         return NextResponse.json({ success: true, message: "Received" }, { status: 200 });
-    } catch (error) {
+    } catch {
         return NextResponse.json({ success: false, message: "Error" }, { status: 500 });
     }
 }

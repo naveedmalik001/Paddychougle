@@ -7,14 +7,14 @@ export default function Testimonials() {
 
                 <div className="grid md:grid-cols-2 gap-12 text-left">
                     <div className="p-8 bg-white/5 rounded-lg border border-white/5">
-                        <p className="text-lg text-gray-300 italic mb-6">"Paddy brings an intensity to the set that is contagious. He understands the camera perfectly and needs very little direction to get the shot."</p>
+                        <p className="text-lg text-gray-300 italic mb-6">&ldquo;Paddy brings an intensity to the set that is contagious. He understands the camera perfectly and needs very little direction to get the shot.&rdquo;</p>
                         <div>
                             <h4 className="text-white font-bold">Sarah Jenkins</h4>
                             <span className="text-muted text-sm">Creative Director, HypeMedia</span>
                         </div>
                     </div>
                     <div className="p-8 bg-white/5 rounded-lg border border-white/5">
-                        <p className="text-lg text-gray-300 italic mb-6">"Professional, punctual, and versatile. Whether it's high-fashion or gritty fitness, he adapts his look and energy effortlessly."</p>
+                        <p className="text-lg text-gray-300 italic mb-6">&ldquo;Professional, punctual, and versatile. Whether it&apos;s high-fashion or gritty fitness, he adapts his look and energy effortlessly.&rdquo;</p>
                         <div>
                             <h4 className="text-white font-bold">Rahul Sharma</h4>
                             <span className="text-muted text-sm">Producer, BoxOffice Films</span>

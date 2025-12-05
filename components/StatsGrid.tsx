@@ -1,4 +1,4 @@
-import { Award, Camera, Heart, Users, Zap, TrendingUp } from "lucide-react";
+import { Award, Heart, Users, Zap, TrendingUp } from "lucide-react";
 
 const stats = [
     { label: "Instagram Followers", value: "703K", icon: Heart },

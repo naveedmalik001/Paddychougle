@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { X, ExternalLink, Play } from "lucide-react";
+import { X, ExternalLink, Play, Search, Filter, Calendar, Eye, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
@@ -23,12 +23,15 @@ const allProjects = [
     {
         id: 1,
         title: "Neon Athletic",
-        category: "Fitness Campaign",
+        category: "Fitness",
         image: "/images/project-1.jpg",
         youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
         client: "Nike India",
         role: "Lead Model",
         description: "A high-energy campaign focused on urban running and night training. Shot on location in Mumbai.",
+        date: "2024-11-15",
+        views: "2.3M",
+        featured: true,
     },
     {
         id: 2,
@@ -39,6 +42,9 @@ const allProjects = [
         client: "FabIndia",
         role: "Talent",
         description: "Showcasing the new summer collection with a focus on organic fabrics and modern living.",
+        date: "2024-10-20",
+        views: "1.8M",
+        featured: true,
     },
     {
         id: 3,
@@ -49,26 +55,35 @@ const allProjects = [
         client: "Gold's Gym",
         role: "Featured Athlete",
         description: "National TVC for the brand re-launch. Emphasis on raw strength and dedication.",
+        date: "2024-09-10",
+        views: "3.1M",
+        featured: true,
     },
     {
         id: 4,
         title: "Tech Elevate",
-        category: "Digital Ad",
+        category: "Technology",
         image: "/images/project-4.jpg",
         youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
         client: "Boat Audio",
         role: "Actor",
         description: "Digital series for the new noise-cancelling headphones line. Playing the role of a focused creator.",
+        date: "2024-08-25",
+        views: "950K",
+        featured: false,
     },
     {
         id: 5,
         title: "Street Style Revolution",
-        category: "Fashion Campaign",
+        category: "Fashion",
         image: "/images/project-5.jpg",
         youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
         client: "H&M",
         role: "Lead Model",
         description: "Urban fashion campaign showcasing the new streetwear collection.",
+        date: "2024-07-30",
+        views: "1.2M",
+        featured: false,
     },
     {
         id: 6,
@@ -79,16 +94,81 @@ const allProjects = [
         client: "Yoga Studio",
         role: "Brand Ambassador",
         description: "Meditation and mindfulness campaign for modern lifestyle.",
+        date: "2024-06-15",
+        views: "680K",
+        featured: false,
+    },
+    {
+        id: 7,
+        title: "Monsoon Dreams",
+        category: "Fashion",
+        image: "/images/project-7.jpg",
+        youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        client: "Zara",
+        role: "Lead Model",
+        description: "Rain-inspired fashion campaign celebrating the monsoon season.",
+        date: "2024-05-20",
+        views: "1.5M",
+        featured: false,
+    },
+    {
+        id: 8,
+        title: "Digital Nomad",
+        category: "Technology",
+        image: "/images/project-8.jpg",
+        youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        client: "Dell",
+        role: "Talent",
+        description: "Campaign showcasing remote work solutions and portable technology.",
+        date: "2024-04-10",
+        views: "890K",
+        featured: false,
     },
 ];
 
 export default function AllProjectsGrid() {
     const [selectedProject, setSelectedProject] = useState<typeof allProjects[0] | null>(null);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState<string>("All");
+    const [sortBy, setSortBy] = useState<string>("newest");
+    const [showFilters, setShowFilters] = useState(false);
+
+    // Get unique categories
+    const categories = ["All", ...Array.from(new Set(allProjects.map(p => p.category)))];
+
+    // Filter and sort projects
+    const filteredProjects = allProjects
+        .filter(project => {
+            const matchesSearch = searchTerm === "" ||
+                project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                project.client.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                project.category.toLowerCase().includes(searchTerm.toLowerCase());
+
+            const matchesCategory = selectedCategory === "All" || project.category === selectedCategory;
+
+            return matchesSearch && matchesCategory;
+        })
+        .sort((a, b) => {
+            switch(sortBy) {
+                case "newest":
+                    return new Date(b.date).getTime() - new Date(a.date).getTime();
+                case "oldest":
+                    return new Date(a.date).getTime() - new Date(b.date).getTime();
+                case "popular":
+                    return parseFloat(b.views.replace('M', '')) - parseFloat(a.views.replace('M', ''));
+                case "name":
+                    return a.title.localeCompare(b.title);
+                default:
+                    return 0;
+            }
+        });
+
+    const projectCount = filteredProjects.length;
 
     return (
         <section className="py-24 bg-charcoal min-h-screen">
             <div className="container mx-auto px-6">
-                <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-16">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-12">
                     <div>
                         <Link href="/" className="text-gold hover:text-white transition-colors inline-block mb-4">
                             ← Back to Home
@@ -99,10 +179,80 @@ export default function AllProjectsGrid() {
                             Explore my complete collection of work, including campaigns, commercials, and creative collaborations with leading brands.
                         </p>
                     </div>
+                    <div className="mt-6 md:mt-0">
+                        <div className="flex items-center gap-4 text-gold font-medium">
+                            <Eye size={20} />
+                            <span className="text-2xl">{projectCount}</span>
+                            <span className="text-muted text-sm">Projects</span>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Search and Filters */}
+                <div className="mb-12 space-y-4">
+                    {/* Search Bar */}
+                    <div className="relative">
+                        <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted" size={20} />
+                        <input
+                            type="text"
+                            placeholder="Search projects by name, client, or category..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder-muted focus:outline-none focus:border-gold/50 transition-colors"
+                        />
+                    </div>
+
+                    {/* Filter Controls */}
+                    <div className="flex flex-col lg:flex-row gap-4">
+                        {/* Category Filter */}
+                        <div className="flex-1">
+                            <button
+                                onClick={() => setShowFilters(!showFilters)}
+                                className="w-full lg:hidden flex items-center justify-between px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white hover:bg-white/10 transition-colors"
+                            >
+                                <span className="flex items-center gap-2">
+                                    <Filter size={18} />
+                                    Filters
+                                </span>
+                                <ChevronDown className={`transform transition-transform ${showFilters ? 'rotate-180' : ''}`} size={18} />
+                            </button>
+                            <div className={`${showFilters ? 'block' : 'hidden'} lg:block space-y-2`}>
+                                <div className="flex flex-wrap gap-2">
+                                    {categories.map((category) => (
+                                        <button
+                                            key={category}
+                                            onClick={() => setSelectedCategory(category)}
+                                            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                                                selectedCategory === category
+                                                    ? 'bg-gold text-charcoal'
+                                                    : 'bg-white/5 text-white hover:bg-white/10 border border-white/10'
+                                            }`}
+                                        >
+                                            {category}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Sort Options */}
+                        <div className="lg:w-48">
+                            <select
+                                value={sortBy}
+                                onChange={(e) => setSortBy(e.target.value)}
+                                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer"
+                            >
+                                <option value="newest" className="bg-charcoal">Newest First</option>
+                                <option value="oldest" className="bg-charcoal">Oldest First</option>
+                                <option value="popular" className="bg-charcoal">Most Popular</option>
+                                <option value="name" className="bg-charcoal">A-Z</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {allProjects.map((project) => (
+                    {filteredProjects.map((project) => (
                         <div
                             key={project.id}
                             className="group relative aspect-[4/3] cursor-pointer overflow-hidden rounded-sm"
@@ -126,15 +276,49 @@ export default function AllProjectsGrid() {
                                 <span className="text-gold text-sm uppercase tracking-wider font-bold mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">{project.category}</span>
                                 <h3 className="text-white text-3xl font-serif font-bold translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">{project.title}</h3>
                             </div>
-                            {project.youtubeUrl && (
-                                <div className="absolute top-4 right-4 p-3 bg-gold/90 rounded-full text-charcoal">
-                                    <Play size={20} fill="currentColor" />
+                            <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
+                                {project.featured && (
+                                    <span className="px-2 py-1 bg-gold text-charcoal text-xs font-bold rounded">Featured</span>
+                                )}
+                                {project.youtubeUrl && (
+                                    <div className="p-2 bg-gold/90 rounded-full text-charcoal">
+                                        <Play size={16} fill="currentColor" />
+                                    </div>
+                                )}
+                            </div>
+                            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white text-xs">
+                                <div className="flex items-center gap-3">
+                                    <span className="flex items-center gap-1">
+                                        <Eye size={12} />
+                                        {project.views}
+                                    </span>
+                                    <span className="flex items-center gap-1">
+                                        <Calendar size={12} />
+                                        {new Date(project.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                                    </span>
                                 </div>
-                            )}
+                            </div>
                         </div>
                     ))}
                 </div>
             </div>
+
+            {/* No Results Message */}
+            {filteredProjects.length === 0 && (
+                <div className="text-center py-20">
+                    <div className="text-muted text-lg mb-4">No projects found matching your criteria.</div>
+                    <button
+                        onClick={() => {
+                            setSearchTerm("");
+                            setSelectedCategory("All");
+                            setSortBy("newest");
+                        }}
+                        className="px-6 py-3 bg-gold text-charcoal font-medium rounded-lg hover:bg-white transition-colors"
+                    >
+                        Clear Filters
+                    </button>
+                </div>
+            )}
 
             {/* Project Modal */}
             <AnimatePresence>
@@ -182,8 +366,23 @@ export default function AllProjectsGrid() {
                                 </div>
                                 <div className="p-8 md:p-12 space-y-6">
                                     <div>
-                                        <span className="text-gold uppercase tracking-widest text-xs font-bold">{selectedProject.category}</span>
-                                        <h2 className="text-4xl font-serif font-bold text-white mt-2">{selectedProject.title}</h2>
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <span className="text-gold uppercase tracking-widest text-xs font-bold">{selectedProject.category}</span>
+                                            {selectedProject.featured && (
+                                                <span className="px-2 py-1 bg-gold text-charcoal text-xs font-bold rounded">Featured</span>
+                                            )}
+                                        </div>
+                                        <h2 className="text-4xl font-serif font-bold text-white">{selectedProject.title}</h2>
+                                        <div className="flex items-center gap-4 mt-3 text-sm text-muted">
+                                            <span className="flex items-center gap-1">
+                                                <Eye size={14} />
+                                                {selectedProject.views} views
+                                            </span>
+                                            <span className="flex items-center gap-1">
+                                                <Calendar size={14} />
+                                                {new Date(selectedProject.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                                            </span>
+                                        </div>
                                     </div>
 
                                     <div className="space-y-4 border-t border-white/10 pt-6">

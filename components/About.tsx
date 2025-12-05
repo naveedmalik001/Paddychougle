@@ -36,7 +36,7 @@ export default function About() {
                         With over 5 years in the industry, I bring a unique blend of athletic discipline and artistic expression to every project. My background in competitive sports allows me to execute dynamic movements with precision, while my acting training ensures emotional authenticity.
                     </p>
                     <p className="text-muted/80 text-lg leading-relaxed">
-                        I don't just pose; I perform. Whether it's a high-energy fitness campaign or a subtle lifestyle shoot, I work collaboratively with directors and photographers to capture the perfect frame.
+                        I don&apos;t just pose; I perform. Whether it&apos;s a high-energy fitness campaign or a subtle lifestyle shoot, I work collaboratively with directors and photographers to capture the perfect frame.
                     </p>
 
                     <div className="pt-8 grid grid-cols-2 gap-8">

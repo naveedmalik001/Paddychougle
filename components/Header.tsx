@@ -118,7 +118,7 @@ export default function Header() {
                             onClick={() => setIsMobileMenuOpen(false)}
                             className="mt-8 px-8 py-3 bg-gold text-charcoal font-bold text-lg uppercase tracking-wide"
                         >
-                            Let's Talk
+                            Let&apos;s Talk
                         </Link>
                     </motion.div>
                 )}

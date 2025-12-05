@@ -32,7 +32,7 @@ export default function ContactForm() {
             } else {
                 setStatus("error");
             }
-        } catch (e) {
+        } catch {
             setStatus("error");
         }
     };
@@ -42,7 +42,7 @@ export default function ContactForm() {
             <div className="container mx-auto px-6 max-w-4xl">
                 <div className="text-center mb-16">
                     <span className="text-gold uppercase tracking-widest font-bold text-sm">Get in Touch</span>
-                    <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mt-4">Let's Create Together</h2>
+                    <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mt-4">Let&apos;s Create Together</h2>
                 </div>
 
                 <div className="bg-white/5 p-8 md:p-12 rounded-lg border border-white/5">
@@ -112,7 +112,7 @@ export default function ContactForm() {
                                     className="flex items-center gap-2 text-green-400 bg-green-400/10 p-4 rounded mt-4"
                                 >
                                     <CheckCircle size={20} />
-                                    <span>Message sent successfully! I'll get back to you soon.</span>
+                                    <span>Message sent successfully! I&apos;ll get back to you soon.</span>
                                 </motion.div>
                             )}
                             {status === "error" && (

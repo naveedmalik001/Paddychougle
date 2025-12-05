@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { X, ExternalLink, Play } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import clsx from "clsx";
 
 // Helper function to extract YouTube video ID from URL
 function getYouTubeVideoId(url: string): string {
