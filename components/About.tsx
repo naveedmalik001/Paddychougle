@@ -17,8 +17,8 @@ export default function About() {
                     </div>
                     <div className="absolute bottom-0 left-0 w-3/4 h-3/4 bg-white/10 rounded-lg overflow-hidden border border-white/5 z-10 shadow-2xl">
                         <Image
-                            src="/images/IMG_20251104_230946.jpg"
-                            alt="Fashion Photography"
+                            src="/images/FullSizeRender (309).jpg"
+                            alt="Professional Photography"
                             fill
                             className="object-cover"
                         />

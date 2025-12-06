@@ -5,21 +5,21 @@ import { GalleryImage } from './types';
 export const galleryImages: GalleryImage[] = [
     {
         id: '1',
-        filename: '862af06f-63f5-406a-99c6-40a7a3e0f888.jpeg',
-        src: '/images/862af06f-63f5-406a-99c6-40a7a3e0f888.jpeg',
+        filename: 'IMG_20251115_180627.jpg',
+        src: '/images/IMG_20251115_180627.jpg',
         title: 'Professional Modeling Session',
         category: 'Fashion',
         alt: 'Professional modeling photo session',
-        createdAt: '2024-11-01',
+        createdAt: '2024-11-15',
     },
     {
         id: '2',
-        filename: '5570113f-1bf3-4a1e-b6d1-ade1f59ce8ae.jpeg',
-        src: '/images/5570113f-1bf3-4a1e-b6d1-ade1f59ce8ae.jpeg',
+        filename: 'FullSizeRender (327).jpg',
+        src: '/images/FullSizeRender (327).jpg',
         title: 'Studio Portrait',
         category: 'Portrait',
-        alt: 'Studio portrait photography',
-        createdAt: '2024-10-28',
+        alt: 'Professional studio portrait photography',
+        createdAt: '2024-09-15',
     },
     {
         id: '3',

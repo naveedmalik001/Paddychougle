@@ -84,7 +84,7 @@ export default function PhotoModal({ image, images, onClose, onNext, onPrevious 
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     exit={{ scale: 0.9, opacity: 0 }}
-                    className="relative z-10 w-full max-w-6xl max-h-[90vh] flex flex-col"
+                    className="relative z-10 w-full max-w-6xl h-[95vh] flex flex-col"
                     onClick={(e) => e.stopPropagation()}
                 >
                     {/* Header */}
@@ -127,12 +127,12 @@ export default function PhotoModal({ image, images, onClose, onNext, onPrevious 
                     </div>
 
                     {/* Image container */}
-                    <div className="flex-1 flex items-center justify-center bg-charcoal/90 relative overflow-hidden">
+                    <div className="flex-1 bg-charcoal/90 relative overflow-hidden p-8">
                         {/* Previous button */}
                         {onPrevious && currentIndex > 0 && (
                             <button
                                 onClick={onPrevious}
-                                className="absolute left-4 z-20 p-3 bg-white/10 rounded-full text-white hover:bg-white/20 transition-colors"
+                                className="absolute left-8 z-20 p-3 bg-white/10 rounded-full text-white hover:bg-white/20 transition-colors"
                                 title="Previous image"
                             >
                                 <ChevronLeft size={24} />
@@ -143,7 +143,7 @@ export default function PhotoModal({ image, images, onClose, onNext, onPrevious 
                         {onNext && currentIndex < images.length - 1 && (
                             <button
                                 onClick={onNext}
-                                className="absolute right-4 z-20 p-3 bg-white/10 rounded-full text-white hover:bg-white/20 transition-colors"
+                                className="absolute right-8 z-20 p-3 bg-white/10 rounded-full text-white hover:bg-white/20 transition-colors"
                                 title="Next image"
                             >
                                 <ChevronRight size={24} />
@@ -151,18 +151,20 @@ export default function PhotoModal({ image, images, onClose, onNext, onPrevious 
                         )}
 
                         {/* Image */}
-                        <div className={`relative w-full h-full flex items-center justify-center ${isZoomed ? 'cursor-zoom-out' : 'cursor-zoom-in'}`}
-                             onClick={() => setIsZoomed(!isZoomed)}>
+                        <div
+                            className={`w-full h-full flex items-center justify-center ${isZoomed ? 'cursor-zoom-out' : 'cursor-zoom-in'} bg-charcoal/80 rounded-lg overflow-hidden`}
+                            onClick={() => setIsZoomed(!isZoomed)}
+                        >
                             <Image
                                 src={image.src}
                                 alt={image.alt || image.title || "Gallery image"}
-                                width={1200}
-                                height={900}
+                                fill
                                 className={`object-contain transition-transform duration-300 ${
                                     isZoomed ? 'scale-150' : 'scale-100'
                                 }`}
-                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 80vw"
+                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 85vw, 70vw"
                                 priority
+                                style={{ maxHeight: '100%', maxWidth: '100%' }}
                             />
                         </div>
                     </div>
