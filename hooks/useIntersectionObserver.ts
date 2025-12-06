@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import type { RefObject } from 'react';
 
 interface Options {
     threshold?: number;
@@ -7,7 +8,7 @@ interface Options {
     freezeOnceVisible?: boolean;
 }
 
-export function useIntersectionObserver({
+export function useIntersectionObserver<T extends Element = HTMLDivElement>({
     threshold = 0,
     root = null,
     rootMargin = '0px',
@@ -16,7 +17,7 @@ export function useIntersectionObserver({
     const [entry, setEntry] = useState<IntersectionObserverEntry>();
     const [isVisible, setIsVisible] = useState(false);
     const [hasBeenVisible, setHasBeenVisible] = useState(false);
-    const ref = useRef<Element>(null);
+    const ref = useRef<T>(null);
 
     useEffect(() => {
         const element = ref.current;

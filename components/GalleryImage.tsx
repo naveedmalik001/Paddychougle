@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
@@ -17,20 +17,12 @@ interface Props {
 export default function GalleryImage({ image, index, onClick, lazy = true }: Props) {
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
-    const divRef = useRef<HTMLDivElement>(null);
 
-    const { ref: intersectionRef, isVisible, hasBeenVisible } = useIntersectionObserver({
+    const { ref, isVisible, hasBeenVisible } = useIntersectionObserver({
         threshold: 0.1,
         rootMargin: "50px",
         freezeOnceVisible: true,
     });
-
-    // Combine refs
-    useEffect(() => {
-        if (intersectionRef && divRef.current) {
-            intersectionRef.current = divRef.current;
-        }
-    }, [intersectionRef, divRef]);
 
     const shouldLoad = !lazy || hasBeenVisible;
 
@@ -53,10 +45,10 @@ export default function GalleryImage({ image, index, onClick, lazy = true }: Pro
 
     return (
         <motion.div
-            ref={divRef}
+            ref={ref}
             initial={{ opacity: 0, y: 20 }}
             animate={{
-                opacity: shouldLoad ? 1 : 0,
+                opacity: shouldLoad ? 1 : 0.3,
                 y: shouldLoad ? 0 : 20,
             }}
             transition={{ delay: index * 0.05, duration: 0.5 }}

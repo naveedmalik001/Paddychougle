@@ -9,16 +9,16 @@ export default function About() {
                 <div className="relative h-[600px] w-full hidden lg:block">
                     <div className="absolute top-0 right-0 w-3/4 h-3/4 bg-white/5 rounded-lg overflow-hidden border border-white/5 z-0 transform translate-x-4 -translate-y-4">
                         <Image
-                            src="/images/about-1.jpg"
-                            alt="Modeling Shot"
+                            src="/images/IMG_20251115_180627.jpg"
+                            alt="Professional Modeling Session"
                             fill
                             className="object-cover opacity-60 grayscale hover:grayscale-0 transition-all duration-500"
                         />
                     </div>
                     <div className="absolute bottom-0 left-0 w-3/4 h-3/4 bg-white/10 rounded-lg overflow-hidden border border-white/5 z-10 shadow-2xl">
                         <Image
-                            src="/images/about-2.jpg"
-                            alt="Acting Shot"
+                            src="/images/IMG_20251104_230946.jpg"
+                            alt="Fashion Photography"
                             fill
                             className="object-cover"
                         />

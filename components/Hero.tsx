@@ -41,8 +41,8 @@ export default function Hero() {
                     <div className="absolute inset-0 bg-neutral-800 animate-pulse" />
 
                     <Image
-                        src="/images/hero.jpg"
-                        alt="Paddy Chougule Portfolio Hero"
+                        src="/images/862af06f-63f5-406a-99c6-40a7a3e0f888.jpeg"
+                        alt="Paddy Chougule Professional Portfolio"
                         fill
                         className="object-cover object-top opacity-90 transition-transform duration-1000 hover:scale-105"
                         priority
